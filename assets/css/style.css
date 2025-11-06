@@ -1,0 +1,412 @@
+/*
+ * Combined base styles and custom home page styling for Rasheed Ghafoury’s portfolio.
+ *
+ * This stylesheet starts with the original theme variables and component styles
+ * provided by the user, ensuring that the resume and contact pages maintain
+ * their established look and feel. At the end of the file, additional rules
+ * prefixed with `rg-` are appended. These govern the appearance of the new
+ * home page design: a full screen candlestick background, a fixed header
+ * navigation bar, a responsive hero layout, and subtle glassmorphism cards.
+ */
+
+/* ==========================================================================
+   Theme Variables
+   ========================================================================== */
+:root{
+  --bg:#0b0c0b;           /* near‑black background */
+  --text:#f6f7f7;         /* off‑white text */
+  --muted:#cfd5d1;
+  --green:#0aaa66;        /* dark green accent */
+  --green-2:#0f7a59;
+  --card:#101311;
+  --border:#173c2e;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+
+/* Base resets */
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  color:var(--text);
+  background: radial-gradient(1200px 800px at 20% -10%, #0a2a1d 0%, #0b0c0b 40%), var(--bg);
+  overflow-x:hidden;
+}
+
+.container{ width:min(1120px, 92%); margin-inline:auto; }
+.section{ padding: clamp(56px, 8vw, 104px) 0; }
+.section-title{ font-size: clamp(1.4rem, 1.2rem + 1.5vw, 2rem); margin:0 0 20px; }
+
+/* Header */
+.site-header{
+  position:sticky; top:0; z-index:1000;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px clamp(16px, 3vw, 24px);
+  background: rgba(11,12,11,.6);
+  backdrop-filter: blur(8px);
+  border-bottom:1px solid #0f2a20;
+}
+.logo{ display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:800; letter-spacing:.5px; }
+.logo-dot{ width:12px; height:12px; border-radius:50%; background:linear-gradient(145deg, var(--green), var(--green-2)); box-shadow: 0 0 24px rgba(10,170,102,.6); }
+
+.site-nav{ display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
+.site-nav a{ color:var(--muted); text-decoration:none; padding:10px 12px; border-radius:10px; transition:.25s ease; }
+.site-nav a:hover{ color:var(--text); background:rgba(10,170,102,.1); }
+
+/* Mobile nav toggle hidden by default */
+.nav-toggle{ display:none !important; }
+
+/* Hero */
+.hero .hero-inner{ display:grid; grid-template-columns: 1.2fr .9fr; gap: clamp(24px, 3vw, 40px); align-items:center; }
+.hero h1{ font-size: clamp(2rem, 1.5rem + 3.5vw, 4rem); margin:.25em 0; }
+.lede{ color:var(--muted); max-width:60ch; }
+.cta{ display:flex; gap:12px; margin:20px 0 28px; flex-wrap:wrap; }
+
+.metrics{ display:flex; gap:16px; flex-wrap:wrap; }
+.metric-card{ background:linear-gradient(180deg, #0e1512, #0b0e0c); border:1px solid var(--border); padding:16px 18px; border-radius:16px; box-shadow:var(--shadow); }
+.metric{ font-size:1.5rem; font-weight:800; color:var(--green); display:block; }
+.metric-card .label{ font-size:.9rem; color:var(--muted); }
+
+.hero-card-inner{ background:linear-gradient(180deg, #0c120f, #0b0e0d); border:1px solid var(--border); border-radius:18px; padding:22px; box-shadow:var(--shadow); }
+.hero-card-inner h3{ margin-top:0; }
+
+/* Buttons */
+.btn{
+  --bg: var(--green);
+  --fg: #02150e;
+  display:inline-block; text-decoration:none; border:1px solid var(--border);
+  background: linear-gradient(145deg, var(--bg), #0b5a41);
+  color:var(--text); padding:12px 16px; border-radius:14px; font-weight:700; letter-spacing:.2px; transition:.25s ease;
+  box-shadow: 0 10px 18px rgba(10,170,102,.2), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.btn:hover{ transform: translateY(-2px); filter: brightness(1.05); }
+.btn.ghost{ background:transparent; }
+.btn.small{ padding:8px 12px; font-weight:600; }
+.btn.link{ background:transparent; border-color:transparent; padding:8px 0; }
+
+/* Cards */
+.cards{ display:grid; grid-template-columns: repeat(3,1fr); gap:20px; }
+.card{ background:linear-gradient(180deg, #0c1210, #0a0d0c); padding:18px; border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); }
+.card h3{ margin:8px 0 8px; }
+.card.link{ display:inline-block; padding:10px 14px; }
+@media (max-width: 900px){ .cards{ grid-template-columns:1fr; } }
+
+/* Contact preview */
+.contact-preview{ display:grid; grid-template-columns:1fr 1.2fr; gap:20px; align-items:center; }
+.contact-preview iframe{ width:100%; min-height:300px; border:0; border-radius:16px; }
+@media (max-width: 900px){ .contact-preview{ grid-template-columns:1fr; } }
+
+/* Resume */
+.resume .resume-header{ margin-bottom: 28px; }
+.resume .resume-contacts a{ color: var(--muted); }
+.resume .grid-2{ display:grid; grid-template-columns: repeat(2,1fr); gap:12px; }
+.resume .job{ background:linear-gradient(180deg, #0c1210, #0a0d0c); border:1px solid var(--border); border-radius:16px; padding:16px; margin:14px 0; }
+.resume .resume-actions{ margin-top:28px; display:flex; gap:12px; }
+
+/* Contact */
+.contact-grid{ display:grid; grid-template-columns: .9fr 1.1fr; gap:20px; align-items:start; }
+.contact-form{ background:linear-gradient(180deg, #0c1210, #0a0d0c); border:1px solid var(--border); padding:18px; border-radius:18px; box-shadow:var(--shadow); }
+.contact-form label{ display:block; font-weight:600; margin:12px 0 8px; }
+.contact-form input, .contact-form textarea{
+  width:100%; background:#0c0f0e; border:1px solid var(--border); color:var(--text); padding:12px; border-radius:12px;
+}
+.form-status{ min-height:20px; color:var(--green); font-size:.95rem; }
+.tiny-note{ color: var(--muted); font-size:.85rem; }
+.map-card{ background:linear-gradient(180deg, #0c1210, #0a0d0c); border:1px solid var(--border); border-radius:18px; padding:18px; box-shadow:var(--shadow); }
+.map-card iframe{ width:100%; min-height:360px; border:0; border-radius:12px; }
+.contact-cards{ display:grid; grid-template-columns: repeat(2,1fr); gap:10px; margin-top:12px; }
+@media (max-width: 980px){ .contact-grid{ grid-template-columns:1fr; } .contact-cards{ grid-template-columns:1fr 1fr; } }
+@media (max-width: 520px){ .contact-cards{ grid-template-columns:1fr; } }
+
+/* Footer */
+.site-footer{ padding:32px 16px; border-top:1px solid var(--border); background: rgba(11,12,11,.6); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+.site-footer .socials a{ display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border:1px solid var(--border); border-radius:10px; color:var(--text); text-decoration:none; }
+
+/* Background animated lines */
+.bg-lines{ position:fixed; inset:0; pointer-events:none; overflow:hidden; }
+.bg-lines .line{
+  position:absolute; top:-100px; width:2px; height:200px;
+  background: linear-gradient(180deg, rgba(10,170,102,.0), rgba(10,170,102,.7), rgba(10,170,102,.0));
+  animation: fall 8s linear infinite;
+  filter: blur(.2px);
+}
+.bg-lines .line:nth-child(1){ left:10%; animation-delay:0s; }
+.bg-lines .line:nth-child(2){ left:40%; animation-delay:2s; }
+.bg-lines .line:nth-child(3){ left:70%; animation-delay:4s; }
+.bg-lines .line:nth-child(4){ left:90%; animation-delay:6s; }
+@keyframes fall{ to{ transform: translateY(120vh); } }
+
+/* Orbs */
+.orb{ position:absolute; border-radius:50%; filter: blur(40px); opacity:.25; pointer-events:none; }
+.orb-a{ width:280px; height:280px; top:10vh; right:2vw; background:radial-gradient(circle, rgba(10,170,102,.8), rgba(15,122,89,.1)); }
+.orb-b{ width:220px; height:220px; bottom:8vh; left:6vw; background:radial-gradient(circle, rgba(10,170,102,.7), rgba(15,122,89,.05)); }
+
+/* Tilt interaction */
+.tilt{ transform-style: preserve-3d; will-change: transform; transition: transform .15s ease; }
+
+/* Reveal on scroll */
+[data-reveal]{ opacity:1; transform:none; transition:.6s ease; }
+body.js-anim [data-reveal]{ opacity:0; transform: translateY(12px); }
+[data-reveal].visible{ opacity:1; transform:none; }
+
+/* Typewriter */
+.typewriter{
+  min-height: 1.8em;
+  font-weight:700;
+  letter-spacing:.2px;
+  color: var(--green);
+}
+
+/* Generic link reset inside cards */
+.card a, .contact-cards a { color: var(--text); text-decoration: none; }
+.card a:hover, .contact-cards a:hover { color: var(--green); }
+
+/* Contact buttons as glossy pills */
+.contact-cards .card.link{
+  background: linear-gradient(145deg, #0d1411, #0a0e0c);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  border-radius: 32px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+}
+.contact-cards .card.link:hover{ transform: translateY(-2px); }
+
+/* Global anchor reset (without affecting nav) */
+main a{ color: var(--text); text-decoration: none; border-bottom: 1px dashed rgba(10,170,102,.35); }
+main a:hover{ color: var(--green); border-bottom-color: rgba(10,170,102,.7); }
+
+/* ===== Resume redesign ===== */
+.resume-main{ display:grid; grid-template-columns: 320px 1fr; gap:22px; }
+@media (max-width: 980px){ .resume-main{ grid-template-columns: 1fr; } }
+
+.profile-card{
+  position: sticky; top: 84px;
+  background: linear-gradient(180deg, #0c1210, #0a0d0c);
+  border:1px solid var(--border);
+  border-radius:18px; padding:18px; box-shadow:var(--shadow);
+}
+.profile-card .title{ margin: 8px 0 14px; color: var(--muted); }
+.profile-list{ display:grid; gap:10px; margin: 10px 0 0; }
+.profile-item{ display:flex; align-items:center; gap:10px; padding:10px 12px; border:1px solid var(--border); border-radius:12px; background:#0c100e; }
+.profile-item .icon{ width:22px; height:22px; display:inline-grid; place-items:center; color: var(--green); }
+.profile-item svg{
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: var(--green);
+}
+
+.box{
+  background: linear-gradient(180deg, #0c1210, #0a0d0c);
+  border:1px solid var(--border);
+  border-radius:18px; padding:18px; box-shadow:var(--shadow); margin-bottom:18px;
+}
+.box h2{ margin: 0 0 8px; }
+.box .sub{ color: var(--muted); margin: 0 0 12px; }
+
+.timeline{ position: relative; padding-left: 18px; }
+.timeline::before{ content:""; position:absolute; left:6px; top:0; bottom:0; width:2px; background:#123c2b; border-radius:2px; }
+
+
+/*
+ * ========================================================================
+ * Custom home page styling
+ *
+ * The following rules are prefixed with `rg-` to prevent conflicts with
+ * existing classes. They provide a new full‑screen animated candlestick
+ * background, fixed header, responsive hero layout, stat cards, and
+ * supplementary scrim. These additions only affect the home page.
+ */
+
+:root {
+  --rg-green: #30e07a;
+  --rg-red: #ff4a5c;
+  --rg-white: #ffffff;
+}
+
+/* Full‑screen canvas for animated candlesticks */
+#rg-market-bg{
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  background: #000;
+}
+
+/* Soft vignette overlay */
+#rg-vignette{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(1200px 800px at 50% 50%, rgba(48,224,122,0.12), transparent 60%),
+    radial-gradient(1200px 800px at 50% 100%, rgba(255,74,92,0.12), transparent 60%);
+}
+
+/* Fixed header for home and other pages (merged) */
+.rg-site-header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px 4vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+}
+.rg-logo{
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--rg-white);
+  text-decoration: none;
+}
+.rg-logo span{ color: var(--rg-green); }
+
+.rg-nav{ display:flex; gap:24px; }
+.rg-nav a{
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: .25s ease;
+}
+.rg-nav a:hover{ background: rgba(10,170,102,0.15); color: var(--rg-white); }
+.rg-nav a.active{ background: var(--rg-green); color: #04160b; }
+
+/* Hero layout */
+#rg-home{
+  position: relative;
+  padding-top: 12vh;
+  padding-bottom: 8vh;
+  color: var(--rg-white);
+}
+/* Home hero grid
+ * The left column contains the title and description; the right column
+ * holds the writer panel. To emphasise the main content and shrink
+ * the side card, the grid proportions allocate more space to the left
+ * (1.5fr) and less to the right (0.5fr). On small screens the layout
+ * collapses to a single column. */
+.rg-hero-grid{
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 0.5fr;
+  gap: 40px;
+}
+@media (max-width: 900px){ .rg-hero-grid{ grid-template-columns: 1fr; } }
+
+.rg-hero-title{
+  font-size: clamp(2.2rem, 6vw, 5rem);
+  margin: 0;
+  line-height: 1.05;
+  text-shadow: 0 4px 18px rgba(0,0,0,0.6);
+}
+
+.rg-hero-sub{
+  margin-top: 1rem;
+  margin-bottom: 1.8rem;
+  max-width: 60ch;
+  color: #dfe7e4;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+
+.rg-btn-row{ display:flex; gap: 14px; flex-wrap: wrap; }
+.rg-btn{
+  display: inline-block;
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.rg-btn-primary{
+  background: var(--rg-green);
+  color: #04160b;
+  box-shadow: 0 4px 12px rgba(48,224,122,0.25);
+}
+.rg-btn-primary:hover{ filter: brightness(1.05); }
+
+/* Secondary button style (not used currently) */
+.rg-btn-secondary{
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--rg-white);
+  backdrop-filter: blur(4px);
+}
+
+.rg-panel{
+  background: rgba(0,0,0,0.70);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  /* Limit the maximum width of the panel so it never feels oversized */
+  max-width: 360px;
+}
+.rg-panel h3{ margin-top: 0; margin-bottom: 12px; color: var(--rg-white); }
+.rg-panel ul{ margin: 0 0 16px 1rem; padding: 0; color: #cfe8db; }
+.rg-panel-cta{ margin-top: 12px; }
+
+/* Stats section */
+.rg-stats{
+  max-width: 1100px;
+  margin: 2rem auto 0;
+  display:grid;
+  gap: 20px;
+  grid-template-columns: repeat(3,1fr);
+}
+@media (max-width: 800px){ .rg-stats{ grid-template-columns: 1fr; } }
+.rg-stat{
+  background: rgba(0,0,0,0.70);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 20px 24px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.4);
+}
+.rg-stat h4{
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  color: var(--rg-green);
+}
+.rg-stat p{
+  margin: 6px 0 0;
+  color: #cfe8db;
+}
+
+/* Footer for home */
+.rg-footer{
+  text-align: center;
+  padding: 40px 16px;
+  color: #aaa;
+}
+
+/* Scrim overlay for additional contrast */
+.rg-scrim{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(1000px 600px at 20% 40%, rgba(0,0,0,0.6), transparent 60%);
+}
+
+/* Box around the hero description to improve legibility over the moving candles */
+.rg-hero-desc{
+  background: rgba(0,0,0,0.65);
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  max-width: 60ch;
+}
+.rg-hero-desc p{
+  margin: 0;
+}

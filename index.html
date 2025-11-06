@@ -1,114 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rasheed Ghafoury — Portfolio</title>
-  <link rel="stylesheet" href="styles.css" />
-  <meta name="description" content="Rasheed Ghafoury — portfolio with full-page reactive market background.">
-  <style>
-    /* Full-page background ticker */
-    body.home{background:#000; color:#fff; overflow-x:hidden}
-    #marketFull{position:fixed; inset:0; z-index:-2; background:#000; width:100vw; height:100vh; display:block}
-    #vignette{position:fixed; inset:0; z-index:-1;
-      background: radial-gradient(1200px 700px at 25% 12%, rgba(48,224,122,.12), transparent 55%),
-                  radial-gradient(1200px 700px at 80% 110%, rgba(255,74,92,.12), transparent 55%);
-      pointer-events:none;
-    }
-    header.site-header{padding:18px 0;}
-    .logo{font-weight:800; letter-spacing:.4px; color:#fff; text-decoration:none; font-size:1.15rem}
-    .logo span{color:#30e07a}
-    .nav a{color:#cfcfcf}
-    .nav a.active,.nav a:hover{color:#fff; background: rgba(255,255,255,.1)}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rasheed Ghafoury — Portfolio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Combined stylesheet (base + custom home) -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- Favicon: simple green dot -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%230AAA66'/%3E%3C/svg%3E">
+  </head>
+  <body>
+    <!-- Animated candlestick canvas and vignette overlay -->
+    <canvas id="rg-market-bg" aria-hidden="true"></canvas>
+    <div id="rg-vignette" aria-hidden="true"></div>
 
-    /* Hero layout */
-    .hero-grid{
-      width:min(1100px,92vw);
-      margin: 10vh auto 6vh;
-      display:grid; gap:1.5rem;
-      grid-template-columns: 1.2fr .9fr;
-    }
-    .hero-title{font-size:clamp(40px,8vw,88px); line-height:1.02; margin:0 0 .6rem}
-    .hero-sub{color:#d9e6de; margin:0 0 1rem; max-width:64ch}
-    .btn{display:inline-block; padding:.9rem 1.1rem; border-radius:12px; text-decoration:none; font-weight:800}
-    .btn.primary{background:#30e07a; color:#04160b; box-shadow:0 10px 30px rgba(48,224,122,.15)}
-    .btn.ghost{border:1px solid rgba(255,255,255,.18); color:#fff; background:rgba(0,0,0,.35)}
-    .btn-row{display:flex; gap:.8rem; flex-wrap:wrap}
+    <!-- Site header with navigation -->
+    <header class="rg-site-header">
+      <a class="rg-logo" href="index.html">Rasheed Ghafoury<span>.</span></a>
+      <nav class="rg-nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="resume.html">Resume</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
 
-    .panel{background: rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.13); border-radius:20px; padding:1.1rem 1.25rem; box-shadow:0 18px 60px rgba(0,0,0,.6)}
-    .panel h3{margin:.1rem 0 .6rem}
-    .panel ul{margin:.2rem 0 0 1rem}
-
-    /* Stats */
-    .stats{width:min(1100px,92vw); margin:2rem auto; display:grid; gap:1rem; grid-template-columns: repeat(3, 1fr)}
-    .stat{background: rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.13); border-radius:18px; padding:1rem 1.2rem; box-shadow:0 12px 40px rgba(0,0,0,.55)}
-    .stat h4{font-size:clamp(22px,3vw,28px); margin:0 0 .2rem; color:#30e07a}
-    .stat p{margin:0; color:#cfd9d4}
-    @media (max-width:980px){ .hero-grid{grid-template-columns:1fr} .stats{grid-template-columns:1fr; } }
-
-    .site-footer{color:#a9a9a9; text-align:center; margin-top:4vh}
-  
-    /* Readability upgrades */
-    .scrim{
-      position:absolute; inset:0;
-      background: radial-gradient(1000px 600px at 25% 35%, rgba(0,0,0,.55), transparent 60%);
-      pointer-events:none; z-index:-1;
-    }
-    .hero-grid .hero-title, .hero-sub{ text-shadow: 0 2px 18px rgba(0,0,0,.55); }
-    .panel{ background: rgba(0,0,0,.70); border-color: rgba(255,255,255,.18); backdrop-filter: blur(6px); }
-    .stat{ background: rgba(0,0,0,.72); border-color: rgba(255,255,255,.18); backdrop-filter: blur(4px); }
-    .btn.primary{ box-shadow: 0 6px 20px rgba(48,224,122,.25), 0 0 0 1px rgba(0,0,0,.4) inset; }
-    .hero-sub{ color:#e6efe9 }
-  </style>
-</head>
-<body class="home">
-  <canvas id="marketFull"></canvas>
-  <div id="vignette"></div>
-
-  <header class="site-header container">
-    <a class="logo" href="index.html">Rasheed Ghafoury<span>.</span></a>
-    <nav class="nav"><a href="index.html" class="active">Home</a></nav>
-  </header>
-
-  <main>
-    <div class="scrim"></div>
-    <section class="hero-grid">
-      <div>
-        <h1 class="hero-title">Rasheed Ghafoury</h1>
-        <p class="hero-sub">Multifaceted writer, investor, and business leader with expertise in investments, mentorship, and customer relations. Proven success in achieving consistent portfolio profitability, enhancing performance, and mentoring students internationally.</p>
-        <div class="btn-row">
-          <a class="btn primary" href="">View Resume</a>
-          
+    <!-- Main content area for the home page -->
+    <main id="rg-home">
+      <!-- Hero layout: description and writer panel -->
+      <section class="rg-hero-grid">
+        <div>
+          <h1 class="rg-hero-title">Rasheed Ghafoury</h1>
+          <!-- Wrap the hero description in a dark box to improve legibility -->
+          <div class="rg-hero-desc">
+            <p class="rg-hero-sub">
+              Multifaceted writer, investor, and business leader with expertise in investments, mentorship, and customer relations.
+              Proven success in achieving consistent portfolio profitability, enhancing corporate performance, and mentoring students
+              internationally toward academic and career growth. Dedicated to strategic leadership, operational excellence, and
+              empowering others through communication, education, and innovation.
+            </p>
+          </div>
+          <div class="rg-btn-row">
+            <a class="rg-btn rg-btn-primary" href="resume.html">View Resume</a>
+          </div>
         </div>
+        <div class="rg-panel">
+          <h3>As an active writer</h3>
+          <ul>
+            <li>Currently writing flash nonfiction pieces that explore philosophy, investing, mindset, success, and critical thinking.</li>
+          </ul>
+          <div class="rg-panel-cta">
+            <a class="rg-btn rg-btn-primary" href="https://medium.com/@rasheedghafoury" target="_blank" rel="noopener">Read my writing →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats section highlighting key metrics -->
+      <section class="rg-stats">
+        <div class="rg-stat tilt">
+          <h4>7%+</h4>
+          <p>Avg. Monthly Capital Gain</p>
+        </div>
+        <div class="rg-stat tilt">
+          <h4>98%</h4>
+          <p>Audit Accuracy (Franchise)</p>
+        </div>
+        <div class="rg-stat tilt">
+          <h4>100+</h4>
+          <p>Team Members Managed</p>
+        </div>
+      </section>
+
+      <!-- Scrim overlay for readability over the background -->
+      <div class="rg-scrim" aria-hidden="true"></div>
+    </main>
+
+    <!-- Highlights section (interactive cards) -->
+    <section class="section container">
+      <h2 class="section-title">Highlights</h2>
+      <div class="cards">
+        <article class="card tilt">
+          <h3>Investments</h3>
+          <p>Value &amp; potential stocks, ETFs, and crypto using market &amp; limit orders, consistently averaging 7%+ monthly returns while setting multiple record days.</p>
+          <a class="btn small" href="resume.html#investment">See details</a>
+        </article>
+        <article class="card tilt">
+          <h3>Leadership</h3>
+          <p>General Manager at Jersey Mike’s, cutting food and labor costs, and managing full ops (scheduling, payroll, inventory) across 100+ staff.</p>
+          <a class="btn small" href="resume.html#experience">Experience</a>
+        </article>
+        <article class="card tilt">
+          <h3>Mentorship</h3>
+          <p>Active UStrive mentor (Amex-supported), guiding students on academic pathways, resumes, and job readiness.</p>
+          <a class="btn small" href="resume.html#skills">Mentoring</a>
+        </article>
       </div>
-      <aside class="panel">
-        <h3>As an active writer</h3>
-        <ul>
-          <li>Currently writing flash nonfiction on philosophy, investing, mindset, success, and critical thinking.</li>
-        </ul>
-        <div style="margin-top:.8rem">
-          <a class="btn primary" href="#">Read my writing →</a>
+    </section>
+
+    <!-- Contact preview section -->
+    <section class="section container">
+      <div class="contact-preview">
+        <div>
+          <h2 class="section-title">Feel free to reach out to me for any business related opportunities!</h2>
+          <a class="btn primary" href="contact.html">Get in touch</a>
         </div>
-      </aside>
+        <iframe
+          title="United States — Map"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=United+States&amp;hl=en&amp;z=4&amp;t=m&amp;output=embed"
+          allowfullscreen=""></iframe>
+      </div>
     </section>
 
-    <section class="stats">
-      <div class="stat"><h4>7%+</h4><p>Avg. Monthly Capital Gain</p></div>
-      <div class="stat"><h4>98%</h4><p>Audit Accuracy (Franchise)</p></div>
-      <div class="stat"><h4>100+</h4><p>Team Members Managed</p></div>
-    </section>
-  </main>
+    <!-- Footer with dynamic year -->
+    <footer class="rg-footer">
+      © <span id="year"></span> Rasheed Ghafoury. All rights reserved.
+    </footer>
 
-  <footer class="site-footer container">
-    <p>© <span id="year"></span> Rasheed Ghafoury. All rights reserved.</p>
-  </footer>
-
-  <script src="app.js"></script>
-  <script>
-    // Full-page candle ticker background (thicker & slower for visibility)
-    marketTickerBackground(document.getElementById('marketFull'), {
-      bull:'#30e07a', bear:'#ff4a5c', onMouse:true
-    });
-  </script>
-</body>
+    <!-- Main JavaScript bundle including canvas animation -->
+    <script src="assets/js/main.js"></script>
+  </body>
 </html>

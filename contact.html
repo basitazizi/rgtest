@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact — Rasheed Ghafoury</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Combined stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%230AAA66'/%3E%3C/svg%3E">
+  </head>
+  <body>
+    <!-- Fixed header with navigation -->
+    <header class="rg-site-header">
+      <a class="rg-logo" href="index.html">Rasheed Ghafoury<span>.</span></a>
+      <nav class="rg-nav">
+        <a href="index.html">Home</a>
+        <a href="resume.html">Resume</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+    </header>
+
+    <main class="section container contact">
+      <!-- Page title and intro -->
+      <header>
+        <h1 class="section-title">Contact</h1>
+        <p>Let’s connect to share ideas, grow, and create value together.</p>
+      </header>
+
+      <div class="contact-grid">
+        <!-- Contact form -->
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/xjkpoyzz" method="POST">
+          <label>Full Name
+            <input type="text" name="name" placeholder="Your name" required />
+          </label>
+          <label>Email
+            <input type="email" name="email" placeholder="name@example.com" required />
+          </label>
+          <label>Subject
+            <input type="text" name="subject" placeholder="Project, collaboration, etc." required />
+          </label>
+          <label>Message
+            <textarea name="message" rows="6" placeholder="How can I help?" required></textarea>
+          </label>
+          <button type="submit" class="btn primary">Send Message</button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+
+        <!-- Map and contact cards -->
+        <div class="map-card tilt">
+          <h2>United States</h2>
+          <iframe
+            title="United States"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=United+States&hl=en&z=4&t=m&output=embed"
+            allowfullscreen=""></iframe>
+          <div class="contact-cards">
+            <a class="card link" href="mailto:rasheedghafoury@gmail.com">✉️ Email</a>
+            <a class="card link" href="tel:+16823603347"> +1 (682) 360‑3347</a>
+            <a class="card link" href="https://linkedin.com/in/rasheed-ghafoury" target="_blank" rel="noopener">in LinkedIn</a>
+            <a class="card link" href="https://medium.com/@rasheedghafoury" target="_blank" rel="noopener">M Medium</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume-actions">
+        <a class="btn ghost" href="index.html">← Back Home</a>
+        <a class="btn ghost" href="resume.html">Resume</a>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span id="year"></span> Rasheed Ghafoury</p>
+      <div class="socials">
+        <a href="mailto:rasheedghafoury@gmail.com" aria-label="Email">✉️</a>
+        <a href="https://linkedin.com/in/rasheed-ghafoury" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+        <a href="https://medium.com/@rasheedghafoury" target="_blank" rel="noopener" aria-label="Medium">M</a>
+        <a href="https://dot.cards/rasheedghafoury" target="_blank" rel="noopener" aria-label="Business Card">◈</a>
+      </div>
+    </footer>
+
+    <!-- Load main JavaScript bundle (tilt, typewriter, contact, candles) -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
