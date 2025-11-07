@@ -159,7 +159,11 @@ ${message}`)}`;
   // achieve the “bigger” look requested by the user, bump this up to
   // 26 pixels. Feel free to experiment with slightly larger values if
   // you want even chunkier candles.
-  const BAR_BASE = 26;
+  // Base width of each candlestick in CSS pixels. Increase this
+  // value to create thicker bars, as requested. A value around
+  // 40 produces prominent candles that remain visually pleasing
+  // without overwhelming the content. Adjust down or up to taste.
+  const BAR_BASE = 40;
 
   // Generate a single candle based on the previous close value
   function genCandle(prevClose){

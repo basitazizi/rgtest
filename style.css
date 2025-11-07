@@ -185,10 +185,17 @@ main a:hover{ color: var(--green); border-bottom-color: rgba(10,170,102,.7); }
 @media (max-width: 980px){ .resume-main{ grid-template-columns: 1fr; } }
 
 .profile-card{
-  position: sticky; top: 84px;
+  position: sticky;
+  top: 84px;
   background: linear-gradient(180deg, #0c1210, #0a0d0c);
-  border:1px solid var(--border);
-  border-radius:18px; padding:18px; box-shadow:var(--shadow);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+  /* Use the same layered box shadow as other boxes to add green
+     and red glows, creating a cohesive 3D effect. */
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45),
+              0 0 32px rgba(48, 224, 122, 0.18),
+              0 0 32px rgba(255, 74, 92, 0.18);
 }
 .profile-card .title{ margin: 8px 0 14px; color: var(--muted); }
 .profile-list{ display:grid; gap:10px; margin: 10px 0 0; }
@@ -203,14 +210,63 @@ main a:hover{ color: var(--green); border-bottom-color: rgba(10,170,102,.7); }
 
 .box{
   background: linear-gradient(180deg, #0c1210, #0a0d0c);
-  border:1px solid var(--border);
-  border-radius:18px; padding:18px; box-shadow:var(--shadow); margin-bottom:18px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+  /* Add layered shadows: base shadow plus subtle green and red glows
+     to tie into the overall palette. Adjust opacity to keep the effect
+     tasteful and non‑distracting. */
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45),
+              0 0 32px rgba(48, 224, 122, 0.18),
+              0 0 32px rgba(255, 74, 92, 0.18);
+  margin-bottom: 18px;
 }
 .box h2{ margin: 0 0 8px; }
 .box .sub{ color: var(--muted); margin: 0 0 12px; }
 
 .timeline{ position: relative; padding-left: 18px; }
 .timeline::before{ content:""; position:absolute; left:6px; top:0; bottom:0; width:2px; background:#123c2b; border-radius:2px; }
+
+/*
+ * ========================================================================
+ * Grid backgrounds for non-home pages
+ *
+ * The resume and contact pages do not display the animated candlestick
+ * background. Instead, they get a subtle grid pattern reminiscent of
+ * chart paper. The repeating linear gradients draw 1px lines every 80px,
+ * while radial gradients add soft green and red glows similar to the
+ * home page vignette. A fixed position ensures the grid stays anchored
+ * behind the content. To use, insert a <div class="grid-bg"></div> at
+ * the top of the page.
+ */
+.grid-bg{
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    /* vertical and horizontal grid lines */
+    repeating-linear-gradient(to right, rgba(255,255,255,0.05) 0, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 80px),
+    repeating-linear-gradient(to bottom, rgba(255,255,255,0.05) 0, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 80px),
+    /* green glow top-left */
+    radial-gradient(1200px 800px at 25% 10%, rgba(48,224,122,0.08), transparent 60%),
+    /* red glow bottom-right */
+    radial-gradient(1200px 800px at 80% 110%, rgba(255,74,92,0.08), transparent 60%);
+}
+
+/*
+ * Mobile tweaks for the resume page
+ *
+ * The profile card is sticky on desktop to keep contact info visible.
+ * On smaller screens, however, the sticky positioning can overlap
+ * subsequent sections when there is only one column. Remove the sticky
+ * behaviour at widths below 900px so the card scrolls normally.
+ */
+@media (max-width: 900px){
+  .profile-card{
+    position: static;
+  }
+}
 
 
 /*
