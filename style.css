@@ -59,7 +59,17 @@ body{
 .site-nav a:hover{ color:var(--text); background:rgba(10,170,102,.1); }
 
 /* Mobile nav toggle hidden by default */
-.nav-toggle{ display:none !important; }
+/* Mobile nav toggle: hidden by default on desktop; see media query for mobile below */
+.nav-toggle{
+  display: none;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: var(--muted);
+  padding: 6px;
+  border-radius: 6px;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
 
 /* Hero */
 .hero .hero-inner{ display:grid; grid-template-columns: 1.2fr .9fr; gap: clamp(24px, 3vw, 40px); align-items:center; }
@@ -342,6 +352,32 @@ main a:hover{ color: var(--green); border-bottom-color: rgba(10,170,102,.7); }
 }
 .rg-nav a:hover{ background: rgba(10,170,102,0.15); color: var(--rg-white); }
 .rg-nav a.active{ background: var(--rg-green); color: #04160b; }
+
+/*
+ * Responsive navigation
+ * On screens narrower than 600px, hide the standard navigation links
+ * and show a menu toggle button. When the toggle is activated via
+ * JavaScript, the `.show` class is applied to `.rg-nav` to display
+ * the menu as a dropdown panel. Links stack vertically and fill
+ * available width.
+ */
+@media (max-width: 600px){
+  .nav-toggle{ display:block; }
+  .rg-nav{
+    position: absolute;
+    top: 100%;
+    right: 16px;
+    background: rgba(0,0,0,0.9);
+    padding: 12px 16px;
+    border-radius: 12px;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 140px;
+    display: none;
+  }
+  .rg-nav.show{ display:flex; }
+  .rg-nav a{ padding: 8px 10px; font-size: 0.85rem; }
+}
 
 /* Responsive navigation: on narrow screens, wrap links to prevent
    truncation. Reduce font size and padding so that “Contact” remains

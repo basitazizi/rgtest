@@ -71,6 +71,23 @@ if(yearEl){ yearEl.textContent = new Date().getFullYear(); }
 })();
 
 // =============================================
+// Mobile menu toggle
+// On small screens, clicking the hamburger button toggles the
+// visibility of the navigation menu. The menu uses the `.show`
+// class to become visible. When open, pressing the button again
+// hides it. No action is taken on larger screens because the
+// button is hidden via CSS.
+(() => {
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu   = document.querySelector('.rg-nav');
+  if(navToggle && navMenu){
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('show');
+    });
+  }
+})();
+
+// =============================================
 // Reveal on scroll for elements with the `[data-reveal]` attribute.
 // Uses IntersectionObserver to add the `.visible` class when an element
 // enters the viewport. This triggers CSS transitions defined in the
