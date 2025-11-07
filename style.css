@@ -27,11 +27,15 @@
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
 body{
-  margin:0;
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
-  color:var(--text);
-  background: radial-gradient(1200px 800px at 20% -10%, #0a2a1d 0%, #0b0c0b 40%), var(--bg);
-  overflow-x:hidden;
+  margin: 0;
+  /* Use a cleaner, more legible font stack. Poppins offers rounded
+     letterforms and improved readability on smaller screens. */
+  font-family: "Poppins", Inter, system-ui, -apple-system, Segoe UI, Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  color: var(--text);
+  background: radial-gradient(1200px 800px at 20% -10%, #0a2a1d 0%, #0b0c0b 40%),
+    var(--bg);
+  overflow-x: hidden;
 }
 
 .container{ width:min(1120px, 92%); margin-inline:auto; }
@@ -338,6 +342,21 @@ main a:hover{ color: var(--green); border-bottom-color: rgba(10,170,102,.7); }
 }
 .rg-nav a:hover{ background: rgba(10,170,102,0.15); color: var(--rg-white); }
 .rg-nav a.active{ background: var(--rg-green); color: #04160b; }
+
+/* Responsive navigation: on narrow screens, wrap links to prevent
+   truncation. Reduce font size and padding so that “Contact” remains
+   fully visible. */
+@media (max-width: 600px){
+  .rg-nav{
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-start;
+  }
+  .rg-nav a{
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+}
 
 /* Hero layout */
 #rg-home{
